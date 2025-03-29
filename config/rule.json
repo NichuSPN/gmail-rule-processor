@@ -1,0 +1,25 @@
+{
+    "rule": {
+        "predicate": "all", 
+        "type": "rule",
+        "rules": [{
+            "type": "condition",
+            "field": "from_address",
+            "operator": "contains",
+            "value": "mp1.tripadvisor"
+        },
+        {
+            "type": "condition",
+            "field": "body",
+            "operator": "contains",
+            "value": "tripadvisor"
+        }]
+    },
+    "action": {
+        "unread": true,
+        "starred": true,
+        "important": true,
+        "location": "INBOX",
+        "category": "CATEGORY_PROMOTIONS"
+    }
+}
