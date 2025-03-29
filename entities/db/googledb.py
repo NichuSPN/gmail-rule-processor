@@ -131,4 +131,12 @@ class GoogleDB(Postgres):
             onSuccess=onSuccess,
             onError=onError,
         )
-        
+
+    def get_message_ids_by_condition(self, condition, onSuccess=None, onError=None):
+        query = """
+            select message_id from gmail.messages
+            {{condition}};
+        """
+        return self.run_query(
+            query, params={"condition": condition}, onSuccess=onSuccess, onError=onError
+        )

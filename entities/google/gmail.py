@@ -55,4 +55,25 @@ class GmailService(GoogleService):
             yield from self.messages_list(
                 pageToken, remainingMessages - len(messages), labels
             )
-            
+
+    def bulk_modify_message_labels(
+        self, message_ids, add_labels=None, remove_labels=None
+    ):
+        if self.service is None:
+            self.authenticate()
+
+        add_labels = add_labels or []
+        remove_labels = remove_labels or []
+
+        body = {
+            "ids": message_ids,
+            "addLabelIds": add_labels,
+            "removeLabelIds": remove_labels,
+        }
+
+        return (
+            self.service.users()
+            .messages()
+            .batchModify(userId="me", body=body)
+            .execute()
+        )
