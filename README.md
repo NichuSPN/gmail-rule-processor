@@ -131,6 +131,34 @@ This will:
 2. Query emails from the database based on these rules
 3. Perform specified actions on matching emails
 
+## Understanding Rules and Actions
+
+The Gmail Rule Processor uses a simple yet powerful system of rules and actions to organize your emails:
+
+### Rules (The "If" Part)
+Rules determine which emails to find based on specific criteria. Think of them as the "if" part of an "if-then" statement:
+
+- **Simple conditions**: Check a single aspect of an email
+  - "If the email is from example.com"
+  - "If the subject contains 'important'"
+  - "If the email was received more than 7 days ago"
+
+- **Combined conditions**: Connect multiple simple conditions
+  - **All (AND)**: Every condition must match ("If from example.com AND subject contains 'important'")
+  - **Any (OR)**: At least one condition must match ("If from example.com OR subject contains 'urgent'")
+
+- **Nested conditions**: Create complex logic
+  - "If from example.com AND (subject contains 'important' OR body contains 'urgent')"
+
+### Actions (The "Then" Part)
+Actions determine what happens to emails that match your rules:
+
+- **Labels**: Mark as read/unread, starred, or important
+- **Location**: Move to Inbox, Spam, or Trash
+- **Categories**: Organize into Personal, Social, Promotions, etc.
+
+For example, "Find all emails from newsletter@example.com and mark them as read, then move them to Promotions category."
+
 ## Rule Format
 
 Rules are defined in JSON format:
@@ -254,3 +282,24 @@ CREATE TABLE emails (
   }
 }
 ```
+
+## Testing
+
+The rules and actions system includes comprehensive test cases to ensure everything works correctly:
+
+### Running Tests
+
+```bash
+python test_rules_and_actions.py
+```
+
+### Test Coverage
+
+The tests cover all aspects of the rules and actions system:
+
+1. **Condition validation**: Tests for valid and invalid fields, operators, and values
+2. **SQL generation**: Verifies correct SQL conditions are generated for different operators
+3. **Rule processing**: Tests simple conditions, AND/OR predicates, and nested rule structures
+4. **Action processing**: Verifies correct label management for all action types
+
+These tests ensure that the rule processor works as expected and handles edge cases correctly.
